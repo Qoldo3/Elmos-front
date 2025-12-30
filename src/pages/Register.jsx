@@ -46,14 +46,17 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Register</h1>
+        <div className="auth-header">
+          <h1>Create account</h1>
+          <p>Get started with Elmosliga</p>
+        </div>
         {success && (
           <div className="success-message">
             Registration successful! Please check your email to activate your account.
             Redirecting to login...
           </div>
         )}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           {error && <div className="error-message">{error}</div>}
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -62,6 +65,7 @@ const Register = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
               required
               autoComplete="email"
             />
@@ -73,6 +77,7 @@ const Register = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create a password"
               required
               autoComplete="new-password"
             />
@@ -84,16 +89,17 @@ const Register = () => {
               id="password1"
               value={password1}
               onChange={(e) => setPassword1(e.target.value)}
+              placeholder="Confirm your password"
               required
               autoComplete="new-password"
             />
           </div>
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
+          <button type="submit" className="btn-primary btn-full" disabled={loading}>
+            {loading ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
         <div className="auth-links">
-          <Link to="/login">Already have an account? Login</Link>
+          <Link to="/login">Already have an account? Sign in</Link>
         </div>
       </div>
     </div>

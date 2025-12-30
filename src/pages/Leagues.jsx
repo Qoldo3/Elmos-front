@@ -92,40 +92,52 @@ const Leagues = () => {
 
   return (
     <div className="leagues-page">
-      <h1>Make a Prediction</h1>
-      <p className="page-description">
-        Select a league and choose which team you think will win.
-      </p>
+      <div className="page-header">
+        <h1>Make a Prediction</h1>
+        <p className="page-description">
+          Choose a league and select your predicted winner
+        </p>
+      </div>
 
       {message.text && (
         <div className={`message ${message.type}`}>{message.text}</div>
       )}
 
-      <div className="leagues-grid">
-        {leagues.map((league) => (
-          <div
-            key={league.id}
-            className={`league-card ${
-              selectedLeague?.id === league.id ? 'selected' : ''
-            }`}
-            onClick={() => handleLeagueSelect(league)}
-          >
-            {league.image && (
-              <img
-                src={league.image}
-                alt={league.name}
-                className="league-image"
-              />
-            )}
-            <h3>{league.name}</h3>
-            <p className="teams-count">{league.teams?.length || 0} teams</p>
-          </div>
-        ))}
+      <div className="leagues-section">
+        <h2 className="section-title">Available Leagues</h2>
+        <div className="leagues-grid">
+          {leagues.map((league) => (
+            <div
+              key={league.id}
+              className={`league-card ${
+                selectedLeague?.id === league.id ? 'selected' : ''
+              }`}
+              onClick={() => handleLeagueSelect(league)}
+            >
+              {league.image && (
+                <div className="league-image-wrapper">
+                  <img
+                    src={league.image}
+                    alt={league.name}
+                    className="league-image"
+                  />
+                </div>
+              )}
+              <div className="league-info">
+                <h3>{league.name}</h3>
+                <p className="teams-count">{league.teams?.length || 0} teams</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {selectedLeague && (
-        <div className="prediction-form-container">
-          <h2>Select Your Prediction for {selectedLeague.name}</h2>
+        <div className="prediction-section">
+          <div className="prediction-header">
+            <h2>{selectedLeague.name}</h2>
+            <p>Select your predicted winner</p>
+          </div>
           <form onSubmit={handleSubmit} className="prediction-form">
             <div className="teams-grid">
               {teams.map((team) => (
@@ -143,19 +155,23 @@ const Leagues = () => {
                     onChange={() => setSelectedTeam(team)}
                   />
                   {team.image && (
-                    <img src={team.image} alt={team.name} className="team-image" />
+                    <div className="team-image-wrapper">
+                      <img src={team.image} alt={team.name} className="team-image" />
+                    </div>
                   )}
-                  <span>{team.name}</span>
+                  <span className="team-name">{team.name}</span>
                 </label>
               ))}
             </div>
-            <button
-              type="submit"
-              className="btn-primary"
-              disabled={!selectedTeam || submitting}
-            >
-              {submitting ? 'Saving...' : 'Save Prediction'}
-            </button>
+            <div className="form-submit">
+              <button
+                type="submit"
+                className="btn-primary btn-large"
+                disabled={!selectedTeam || submitting}
+              >
+                {submitting ? 'Saving...' : 'Save Prediction'}
+              </button>
+            </div>
           </form>
         </div>
       )}

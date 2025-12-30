@@ -3,88 +3,128 @@
   margin: 0 auto;
 }
 
-.predictions-page h1 {
-  color: #333;
-  margin-bottom: 2rem;
+.page-header {
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.page-description {
+  font-size: 1.125rem;
+  color: #6b7280;
 }
 
 .empty-state {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem 2rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
 }
 
 .empty-state p {
-  color: #666;
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 1rem;
 }
 
 .predictions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
 .prediction-card {
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e5e7eb;
+  padding: 0;
+  transition: all 0.2s;
+  overflow: hidden;
 }
 
 .prediction-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
-.prediction-header {
+.prediction-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
 }
 
-.prediction-header h3 {
-  margin: 0;
-  color: #333;
-}
-
-.points-badge {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.prediction-content {
-  color: #666;
-}
-
-.predicted-team {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-.predicted-team strong {
-  color: #333;
+.prediction-card-header h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
 }
 
 .prediction-date {
-  margin: 0.5rem 0 0 0;
-  font-size: 0.9rem;
-  color: #999;
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.points-badge {
+  background: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.prediction-card-body {
+  padding: 1.5rem;
+}
+
+.prediction-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prediction-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.prediction-value {
+  font-size: 1rem;
+  color: #111827;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
   .predictions-grid {
     grid-template-columns: 1fr;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
   }
 }

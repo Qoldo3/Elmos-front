@@ -73,97 +73,109 @@ const Leaderboard = () => {
 
   return (
     <div className="leaderboard-page">
-      <h1>Leaderboard</h1>
-
-      <div className="view-toggle">
-        <button
-          className={`toggle-btn ${view === 'global' ? 'active' : ''}`}
-          onClick={() => handleViewChange('global')}
-        >
-          Global
-        </button>
-        <button
-          className={`toggle-btn ${view === 'league' ? 'active' : ''}`}
-          onClick={() => handleViewChange('league')}
-        >
-          By League
-        </button>
+      <div className="page-header">
+        <h1>Leaderboard</h1>
+        <p className="page-description">See how you rank against other players</p>
       </div>
 
-      {view === 'league' && (
-        <div className="league-selector">
-          <label htmlFor="league-select">Select League:</label>
-          <select
-            id="league-select"
-            value={selectedLeague?.id || ''}
-            onChange={(e) => {
-              const league = leagues.find((l) => l.id === parseInt(e.target.value));
-              setSelectedLeague(league);
-            }}
+      <div className="leaderboard-controls">
+        <div className="view-toggle">
+          <button
+            className={`toggle-btn ${view === 'global' ? 'active' : ''}`}
+            onClick={() => handleViewChange('global')}
           >
-            <option value="">Choose a league...</option>
-            {leagues.map((league) => (
-              <option key={league.id} value={league.id}>
-                {league.name}
-              </option>
-            ))}
-          </select>
+            Global
+          </button>
+          <button
+            className={`toggle-btn ${view === 'league' ? 'active' : ''}`}
+            onClick={() => handleViewChange('league')}
+          >
+            By League
+          </button>
         </div>
-      )}
+
+        {view === 'league' && (
+          <div className="league-selector">
+            <select
+              id="league-select"
+              value={selectedLeague?.id || ''}
+              onChange={(e) => {
+                const league = leagues.find((l) => l.id === parseInt(e.target.value));
+                setSelectedLeague(league);
+              }}
+            >
+              <option value="">Select a league...</option>
+              {leagues.map((league) => (
+                <option key={league.id} value={league.id}>
+                  {league.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
 
       {displayData.length === 0 ? (
         <div className="empty-state">
-          {view === 'league' && !selectedLeague
-            ? 'Please select a league to view its leaderboard.'
-            : 'No data available.'}
+          <div className="empty-icon">📊</div>
+          <h3>No data available</h3>
+          <p>
+            {view === 'league' && !selectedLeague
+              ? 'Please select a league to view its leaderboard'
+              : 'Check back later for leaderboard updates'}
+          </p>
         </div>
       ) : (
-        <div className="leaderboard-table">
-          <div className={`table-header ${view}-view`}>
-            <div className="rank-col">Rank</div>
-            <div className="name-col">Name</div>
-            {view === 'league' && <div className="prediction-col">Prediction</div>}
-            <div className="points-col">Points</div>
-          </div>
-          {displayData.map((entry, index) => (
-            <div key={entry.id || index} className={`table-row ${view}-view`}>
-              <div className="rank-col">
-                <span className={`rank-badge rank-${entry.rank || index + 1}`}>
-                  {entry.rank || index + 1}
-                </span>
-              </div>
-              <div className="name-col">
-                <div className="user-info">
-                  {entry.image && (
-                    <img
-                      src={entry.image}
-                      alt={entry.profile__first_name || entry.first_name || 'User'}
-                      className="user-avatar"
-                    />
-                  )}
-                  <div>
-                    <div className="user-name">
-                      {entry.profile__first_name || entry.first_name || ''}{' '}
-                      {entry.profile__last_name || entry.last_name || ''}
-                    </div>
-                    <div className="user-email">
-                      {entry.profile__user__email || entry.user__email}
+        <div className="leaderboard-table-wrapper">
+          <div className="leaderboard-table">
+            <div className={`table-header ${view}-view`}>
+              <div className="rank-col">Rank</div>
+              <div className="name-col">Player</div>
+              {view === 'league' && <div className="prediction-col">Prediction</div>}
+              <div className="points-col">Points</div>
+            </div>
+            <div className="table-body">
+              {displayData.map((entry, index) => (
+                <div key={entry.id || index} className={`table-row ${view}-view`}>
+                  <div className="rank-col">
+                    <span className={`rank-badge rank-${entry.rank || index + 1}`}>
+                      {entry.rank || index + 1}
+                    </span>
+                  </div>
+                  <div className="name-col">
+                    <div className="user-info">
+                      {entry.image && (
+                        <img
+                          src={entry.image}
+                          alt={entry.profile__first_name || entry.first_name || 'User'}
+                          className="user-avatar"
+                        />
+                      )}
+                      <div className="user-details">
+                        <div className="user-name">
+                          {(entry.profile__first_name || entry.first_name || '') + ' ' + 
+                           (entry.profile__last_name || entry.last_name || '') || 'Anonymous'}
+                        </div>
+                        <div className="user-email">
+                          {entry.profile__user__email || entry.user__email}
+                        </div>
+                      </div>
                     </div>
                   </div>
+                  {view === 'league' && (
+                    <div className="prediction-col">
+                      {entry.predicted_team__name || 'N/A'}
+                    </div>
+                  )}
+                  <div className="points-col">
+                    <span className="points-value">
+                      {entry.points || entry.total_points || 0}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              {view === 'league' && (
-                <div className="prediction-col">
-                  {entry.predicted_team__name || 'N/A'}
-                </div>
-              )}
-              <div className="points-col">
-                <span className="points-value">
-                  {entry.points || entry.total_points || 0}
-                </span>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       )}
     </div>

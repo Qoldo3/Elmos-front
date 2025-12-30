@@ -38,11 +38,16 @@ const Predictions = () => {
   if (predictions.length === 0) {
     return (
       <div className="predictions-page">
-        <h1>My Predictions</h1>
+        <div className="page-header">
+          <h1>My Predictions</h1>
+          <p className="page-description">View and manage your league predictions</p>
+        </div>
         <div className="empty-state">
-          <p>You haven't made any predictions yet.</p>
+          <div className="empty-icon">📋</div>
+          <h3>No predictions yet</h3>
+          <p>Start making predictions to see them here</p>
           <a href="/leagues" className="btn-primary">
-            Make a Prediction
+            Make Your First Prediction
           </a>
         </div>
       </div>
@@ -51,21 +56,33 @@ const Predictions = () => {
 
   return (
     <div className="predictions-page">
-      <h1>My Predictions</h1>
+      <div className="page-header">
+        <h1>My Predictions</h1>
+        <p className="page-description">{predictions.length} {predictions.length === 1 ? 'prediction' : 'predictions'}</p>
+      </div>
       <div className="predictions-grid">
         {predictions.map((prediction) => (
           <div key={prediction.id} className="prediction-card">
-            <div className="prediction-header">
-              <h3>{prediction.league_name}</h3>
-              <span className="points-badge">{prediction.points} pts</span>
+            <div className="prediction-card-header">
+              <div>
+                <h3>{prediction.league_name}</h3>
+                <p className="prediction-date">
+                  {new Date(prediction.created_at).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </p>
+              </div>
+              <div className="points-badge">{prediction.points}</div>
             </div>
-            <div className="prediction-content">
-              <p className="predicted-team">
-                <strong>Predicted Winner:</strong> {prediction.predicted_team_name || 'Not set'}
-              </p>
-              <p className="prediction-date">
-                Created: {new Date(prediction.created_at).toLocaleDateString()}
-              </p>
+            <div className="prediction-card-body">
+              <div className="prediction-item">
+                <span className="prediction-label">Predicted Winner</span>
+                <span className="prediction-value">
+                  {prediction.predicted_team_name || 'Not set'}
+                </span>
+              </div>
             </div>
           </div>
         ))}

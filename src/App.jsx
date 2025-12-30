@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPasswordConfirm from './pages/ResetPasswordConfirm';
 import ActivateAccount from './pages/ActivateAccount';
+import ResendActivation from './pages/ResendActivation';
 import Leagues from './pages/Leagues';
 import Predictions from './pages/Predictions';
 import Leaderboard from './pages/Leaderboard';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPasswordConfirm />} />
             <Route path="/activate/:token" element={<ActivateAccount />} />
+            <Route path="/resend-activation" element={<ResendActivation />} />
             <Route
               path="/leagues"
               element={

@@ -1,17 +1,34 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { authService } from '../services/authService';
 import './Auth.css';
 
 const ActivateAccount = () => {
   const { token } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [status, setStatus] = useState('loading');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    activateAccount();
-  }, [token]);
+    // Check if we have status from backend redirect
+    const redirectStatus = searchParams.get('status');
+    const redirectMessage = searchParams.get('message');
+    
+    if (redirectStatus) {
+      // Backend redirected us with status
+      setStatus(redirectStatus);
+      setMessage(decodeURIComponent(redirectMessage || ''));
+      if (redirectStatus === 'success') {
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+      }
+    } else {
+      // No redirect status, call API directly (for backward compatibility)
+      activateAccount();
+    }
+  }, [token, searchParams]);
 
   const activateAccount = async () => {
     try {

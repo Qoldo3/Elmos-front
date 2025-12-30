@@ -133,86 +133,99 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <h1>Profile</h1>
+      <div className="page-header">
+        <h1>Profile</h1>
+        <p className="page-description">Manage your account settings</p>
+      </div>
 
       {message.text && (
         <div className={`message ${message.type}`}>{message.text}</div>
       )}
 
       <div className="profile-container">
-        <div className="profile-card">
-          {!editing ? (
-            <>
-              <div className="profile-header">
-                {profile?.image && (
+        {!editing ? (
+          <div className="profile-view">
+            <div className="profile-header-section">
+              {profile?.image && (
+                <div className="profile-image-wrapper">
                   <img
                     src={profile.image}
                     alt="Profile"
                     className="profile-image-large"
                   />
-                )}
-                <div>
-                  <h2>
-                    {profile?.first_name || ''} {profile?.last_name || ''}
-                  </h2>
-                  <p className="profile-email">{profile?.email}</p>
-                </div>
-              </div>
-              {profile?.description && (
-                <div className="profile-description">
-                  <h3>About</h3>
-                  <p>{profile.description}</p>
                 </div>
               )}
-              <div className="profile-actions">
-                <button
-                  onClick={() => setEditing(true)}
-                  className="btn-primary"
-                >
-                  Edit Profile
-                </button>
-                <button
-                  onClick={() => setShowPasswordForm(!showPasswordForm)}
-                  className="btn-secondary"
-                >
-                  Change Password
-                </button>
+              <div className="profile-info">
+                <h2 className="profile-name">
+                  {profile?.first_name || ''} {profile?.last_name || ''}
+                </h2>
+                <p className="profile-email">{profile?.email}</p>
               </div>
-            </>
-          ) : (
-            <form onSubmit={handleProfileSubmit} className="profile-form">
-              <div className="form-group">
-                <label htmlFor="first_name">First Name</label>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleInputChange}
-                />
+            </div>
+            
+            {profile?.description && (
+              <div className="profile-description-section">
+                <h3>About</h3>
+                <p>{profile.description}</p>
+              </div>
+            )}
+            
+            <div className="profile-actions-section">
+              <button
+                onClick={() => setEditing(true)}
+                className="btn-primary"
+              >
+                Edit Profile
+              </button>
+              <button
+                onClick={() => setShowPasswordForm(!showPasswordForm)}
+                className="btn-secondary"
+              >
+                Change Password
+              </button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleProfileSubmit} className="profile-form">
+            <div className="form-section">
+              <h3>Personal Information</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="first_name">First Name</label>
+                  <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleInputChange}
+                    placeholder="Enter first name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="last_name">Last Name</label>
+                  <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    value={formData.last_name}
+                    onChange={handleInputChange}
+                    placeholder="Enter last name"
+                  />
+                </div>
               </div>
               <div className="form-group">
-                <label htmlFor="last_name">Last Name</label>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">Bio</label>
                 <textarea
                   id="description"
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="4"
+                  placeholder="Tell us about yourself..."
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="image">Profile Image</label>
+                <label htmlFor="image">Profile Picture</label>
                 <input
                   type="file"
                   id="image"
@@ -221,26 +234,28 @@ const Profile = () => {
                   onChange={handleImageChange}
                 />
               </div>
-              <div className="form-actions">
-                <button type="submit" className="btn-primary">
-                  Save Changes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditing(false);
-                    loadProfile();
-                  }}
-                  className="btn-secondary"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          )}
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="btn-primary">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEditing(false);
+                  loadProfile();
+                }}
+                className="btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
 
-          {showPasswordForm && (
-            <form onSubmit={handlePasswordSubmit} className="password-form">
+        {showPasswordForm && (
+          <form onSubmit={handlePasswordSubmit} className="password-form">
+            <div className="form-section">
               <h3>Change Password</h3>
               <div className="form-group">
                 <label htmlFor="old_password">Current Password</label>
@@ -255,6 +270,7 @@ const Profile = () => {
                       old_password: e.target.value,
                     }))
                   }
+                  placeholder="Enter current password"
                   required
                 />
               </div>
@@ -271,6 +287,7 @@ const Profile = () => {
                       new_password: e.target.value,
                     }))
                   }
+                  placeholder="Enter new password"
                   required
                 />
               </div>
@@ -287,31 +304,32 @@ const Profile = () => {
                       new_password1: e.target.value,
                     }))
                   }
+                  placeholder="Confirm new password"
                   required
                 />
               </div>
-              <div className="form-actions">
-                <button type="submit" className="btn-primary">
-                  Change Password
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowPasswordForm(false);
-                    setPasswordData({
-                      old_password: '',
-                      new_password: '',
-                      new_password1: '',
-                    });
-                  }}
-                  className="btn-secondary"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          )}
-        </div>
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="btn-primary">
+                Change Password
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowPasswordForm(false);
+                  setPasswordData({
+                    old_password: '',
+                    new_password: '',
+                    new_password1: '',
+                  });
+                }}
+                className="btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );

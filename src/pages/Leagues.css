@@ -3,112 +3,153 @@
   margin: 0 auto;
 }
 
-.leagues-page h1 {
-  color: #333;
+.page-header {
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
 }
 
 .page-description {
-  color: #666;
-  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #6b7280;
 }
 
 .message {
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  font-size: 0.9375rem;
 }
 
 .message.success {
-  background-color: #efe;
-  color: #3c3;
-  border: 1px solid #cfc;
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
 
 .message.error {
-  background-color: #fee;
-  color: #c33;
-  border: 1px solid #fcc;
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.leagues-section {
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
 }
 
 .leagues-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 3rem;
 }
 
 .league-card {
   background: white;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 2rem;
   cursor: pointer;
   transition: all 0.2s;
   text-align: center;
 }
 
 .league-card:hover {
-  border-color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .league-card.selected {
-  border-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.league-image-wrapper {
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
 }
 
 .league-image {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  margin-bottom: 1rem;
   border-radius: 8px;
 }
 
-.league-card h3 {
-  margin: 0.5rem 0;
-  color: #333;
+.league-info h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
 }
 
 .teams-count {
-  color: #666;
-  font-size: 0.9rem;
+  color: #6b7280;
+  font-size: 0.875rem;
   margin: 0;
 }
 
-.prediction-form-container {
+.prediction-section {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  padding: 2.5rem;
   margin-top: 2rem;
 }
 
-.prediction-form-container h2 {
-  margin-top: 0;
-  color: #333;
-  margin-bottom: 1.5rem;
+.prediction-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.prediction-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.prediction-header p {
+  color: #6b7280;
+  font-size: 0.9375rem;
+}
+
+.prediction-form {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .teams-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .team-option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
+  background: white;
 }
 
 .team-option input[type="radio"] {
@@ -118,30 +159,43 @@
 }
 
 .team-option:hover {
-  border-color: #667eea;
-  background-color: rgba(102, 126, 234, 0.05);
+  border-color: #2563eb;
+  background-color: #f9fafb;
 }
 
 .team-option.selected {
-  border-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.team-image-wrapper {
+  margin-bottom: 0.75rem;
 }
 
 .team-image {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  margin-bottom: 0.5rem;
 }
 
-.team-option span {
-  font-size: 0.9rem;
-  color: #333;
+.team-name {
+  font-size: 0.875rem;
+  color: #111827;
   text-align: center;
   font-weight: 500;
 }
 
+.form-submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
 @media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
   .leagues-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
@@ -151,7 +205,7 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
 
-  .prediction-form-container {
+  .prediction-section {
     padding: 1.5rem;
   }
 }
