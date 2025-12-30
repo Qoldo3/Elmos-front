@@ -1,11 +1,27 @@
+
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useState, useEffect } from 'react';
 import './Layout.css';
 
 const Layout = ({ children }) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // Check if user is admin by checking localStorage or making API call
+    const checkAdmin = async () => {
+      if (user) {
+        // In production, you should have is_staff in user object
+        // For now, we'll show admin link to all authenticated users
+        // and let backend handle permission checks
+        setIsAdmin(true);
+      }
+    };
+    checkAdmin();
+  }, [user]);
 
   const handleLogout = async () => {
     await logout();
@@ -47,6 +63,15 @@ const Layout = ({ children }) => {
               >
                 Profile
               </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className={`nav-link ${isActive('/admin') ? 'active' : ''}`}
+                  style={{ color: '#dc2626' }}
+                >
+                  Admin
+                </Link>
+              )}
               <div className="user-menu">
                 <span className="user-email">{user?.email}</span>
                 <button onClick={handleLogout} className="logout-btn">
