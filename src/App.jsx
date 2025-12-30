@@ -26,7 +26,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPasswordConfirm />} />
-            <Route path="/activate/:token" element={<ActivateAccount />} />
+            <Route path="/activate/" element={<ActivateAccount />} />
             <Route path="/resend-activation" element={<ResendActivation />} />
             <Route
               path="/leagues"

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { authService } from '../services/authService';
 import './Auth.css';
 
 const ActivateAccount = () => {
@@ -11,42 +10,25 @@ const ActivateAccount = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Check if we have status from backend redirect
+    // Get status and message from URL query parameters (set by backend redirect)
     const redirectStatus = searchParams.get('status');
     const redirectMessage = searchParams.get('message');
     
     if (redirectStatus) {
       // Backend redirected us with status
       setStatus(redirectStatus);
-      setMessage(decodeURIComponent(redirectMessage || ''));
+      setMessage(redirectMessage || '');
       if (redirectStatus === 'success') {
         setTimeout(() => {
           navigate('/login');
         }, 3000);
       }
     } else {
-      // No redirect status, call API directly (for backward compatibility)
-      activateAccount();
-    }
-  }, [token, searchParams]);
-
-  const activateAccount = async () => {
-    try {
-      const data = await authService.activateAccount(token);
-      setStatus('success');
-      setMessage(data.message || 'Account activated successfully!');
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-    } catch (error) {
+      // No query params - show error (user shouldn't access this page directly)
       setStatus('error');
-      setMessage(
-        error.response?.data?.error ||
-          error.response?.data?.detail ||
-          'Activation failed. The link may have expired.'
-      );
+      setMessage('Invalid activation link.');
     }
-  };
+  }, [token, searchParams, navigate]);
 
   return (
     <div className="auth-container">
