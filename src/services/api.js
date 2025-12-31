@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'senamir.runflare.run';
+const API_BASE_URL = 'http://senamir.runflare.run';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
